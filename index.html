@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future | Tech Help and Custom Projects</title>
+<meta name="description" content="Phone, Wi-Fi, software and account help, plus custom projects. Call or WhatsApp Future.">
+<style>
+  :root {
+    --ink: #e8f1ec;
+    --ink-soft: #a9bdb5;
+    --bg: #0b1512;
+    --card: #142420;
+    --green: #25d366;
+    --green-dark: #3ee07d;
+    --blue: #2f6fed;
+    --coral: #ff7a59;
+    --line: #2a3f38;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+  h1, h2, h3 { line-height: 1.15; font-weight: 700; }
+  a { color: var(--green-dark); }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  svg { display: block; max-width: 100%; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 88px 0; }
+  .eyebrow-free { font-size: 1.1rem; color: var(--ink-soft); max-width: 60ch; }
+  .section-head { margin-bottom: 44px; max-width: 680px; }
+  .section-head h2 { font-size: clamp(2rem, 4vw, 2.7rem); margin-bottom: 12px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; font-weight: 700; text-decoration: none; font-size: 1rem; border: 2px solid transparent; transition: transform 0.15s, background 0.2s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-green { background: var(--green); color: #05321a; }
+  .btn-green:hover { background: #3ee07d; }
+  .btn-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
+  .btn-outline:hover { background: var(--ink); color: #0b1512; }
+  .btn-dark { background: var(--ink); color: #fff; }
+
+  header.top { position: sticky; top: 0; z-index: 50; background: rgba(19,35,31,0.96); color: #fff; backdrop-filter: blur(8px); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: 0.5px; font-size: 1.1rem; }
+  .nav ul { display: flex; gap: 24px; list-style: none; }
+  .nav a { color: #c8d8d2; text-decoration: none; font-size: 0.95rem; }
+  .nav a:hover { color: #fff; }
+  .nav .btn { padding: 10px 18px; font-size: 0.9rem; }
+
+  .hero { background: linear-gradient(160deg, #13231f 0%, #1c3a33 60%, #205c4c 100%); color: #fff; padding: 84px 0 96px; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(2.5rem, 5.5vw, 4rem); margin-bottom: 20px; }
+  .hero .lead { font-size: 1.2rem; color: #cfe3da; margin-bottom: 34px; max-width: 52ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-note { margin-top: 26px; font-size: 0.95rem; color: #a9c7bc; }
+  .hero-note strong { color: #fff; }
+  .hero-art { width: 100%; height: auto; }
+
+  .strip { background: var(--green); color: #05321a; font-weight: 700; padding: 18px 0; }
+  .strip .wrap { display: flex; gap: 12px 36px; justify-content: center; flex-wrap: wrap; }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; }
+  .service { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .service svg.ill { width: 100%; height: 150px; border-radius: 12px; }
+  .service h3 { font-size: 1.25rem; margin-top: 6px; }
+  .service p { color: var(--ink-soft); font-size: 0.97rem; }
+  .service ul { list-style: none; color: var(--ink-soft); font-size: 0.93rem; }
+  .service li::before { content: "\2713"; color: var(--green-dark); font-weight: 800; margin-right: 8px; }
+
+  .how { background: #0f1d19; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 22px; }
+  .step { border-top: 4px solid var(--line); padding-top: 18px; }
+  .step.on { border-top-color: var(--green); }
+  .step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .step p { font-size: 0.95rem; color: var(--ink-soft); }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .split svg.big { width: 100%; height: auto; }
+  .checks { list-style: none; display: grid; gap: 14px; margin-top: 22px; color: var(--ink-soft); }
+  .checks li::before { content: "\2713"; color: var(--green-dark); font-weight: 800; margin-right: 10px; }
+
+  .projects { background: #08100d; color: #e8f1ec; }
+  .projects .section-head p { color: #b9d0c7; }
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .project { background: #1c3a33; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+  .project svg { width: 100%; height: auto; }
+  .project-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .project-body h3 { font-size: 1.2rem; }
+  .project-body p { color: #b9d0c7; font-size: 0.95rem; }
+  .tag { align-self: flex-start; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #0f2620; color: var(--green); }
+
+  .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+  .faq summary { cursor: pointer; font-weight: 700; list-style: none; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; float: right; color: var(--green-dark); font-size: 1.2rem; }
+  .faq details[open] summary::after { content: "\2212"; }
+  .faq details p { margin-top: 10px; color: var(--ink-soft); font-size: 0.97rem; }
+
+  .contact { background: linear-gradient(135deg, #128c4a, #13231f); color: #fff; border-radius: 26px; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .contact h2 { font-size: clamp(2rem, 4vw, 2.6rem); margin-bottom: 14px; }
+  .contact p { color: #d6efe2; }
+  .numbers { display: grid; gap: 14px; }
+  .number-card { background: rgba(255,255,255,0.08); border-radius: 14px; padding: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .number-card strong { font-size: 1.6rem; letter-spacing: 1px; }
+  .number-card span { display: block; font-size: 0.9rem; color: #d6efe2; }
+  .number-card .btn { padding: 12px 18px; font-size: 0.95rem; }
+
+  .team { background: #0f1d19; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+  .member { background: #142420; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  .photo { position: relative; width: 100%; aspect-ratio: 4 / 5; background: linear-gradient(160deg, #1c3a33, #128c4a); display: grid; place-items: center; }
+  .photo .initials { font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.85); letter-spacing: 1px; }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .member-body { padding: 20px; }
+  .member-body h3 { font-size: 1.15rem; }
+  .role { font-size: 0.9rem; color: var(--green-dark); font-weight: 700; margin: 4px 0 10px; }
+  .member-body p { font-size: 0.93rem; color: var(--ink-soft); }
+  .team-note { margin-top: 26px; font-size: 0.9rem; color: var(--ink-soft); }
+  .hero-photo { width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; position: relative; background: linear-gradient(135deg, #205c4c, #13231f); margin-top: 28px; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .game { background: #08100d; color: #e8f1ec; }
+  .game .section-head p { color: #b9d0c7; }
+  .game-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; }
+  .game-card { background: #1c3a33; border-radius: var(--radius); padding: 30px; }
+  .game-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+  .game-card > p { color: #b9d0c7; font-size: 0.95rem; margin-bottom: 18px; }
+  .pw-input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 2px solid #2f5a4e; background: #0c1714; color: #fff; font-size: 1.1rem; font-family: "Courier New", monospace; }
+  .pw-input:focus { border-color: var(--green); outline: none; }
+  .pw-meter { height: 14px; border-radius: 99px; background: #0c1714; margin: 18px 0 8px; overflow: hidden; }
+  .pw-meter span { display: block; height: 100%; width: 0; background: var(--green); transition: width 0.35s, background 0.35s; }
+  .pw-label { font-weight: 700; font-size: 1.05rem; min-height: 26px; }
+  .pw-time { color: #b9d0c7; font-size: 0.95rem; margin-top: 4px; }
+  .rules { list-style: none; display: grid; gap: 10px; margin-top: 20px; }
+  .rules li { display: flex; align-items: center; gap: 12px; background: #0c1714; padding: 12px 14px; border-radius: 10px; font-size: 0.95rem; color: #b9d0c7; transition: color 0.2s; }
+  .rules li .box { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #3c6b5e; display: grid; place-items: center; flex-shrink: 0; font-size: 0.8rem; font-weight: 800; color: transparent; }
+  .rules li.ok { color: #fff; }
+  .rules li.ok .box { background: var(--green); border-color: var(--green); color: #05321a; }
+  .quiz-q { font-weight: 700; margin-bottom: 12px; }
+  .quiz-opts { display: grid; gap: 10px; }
+  .quiz-opt { background: #0c1714; color: #fff; border: 2px solid #2f5a4e; border-radius: 12px; padding: 13px 16px; text-align: left; font-family: inherit; font-size: 0.97rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+  .quiz-opt:hover { border-color: var(--green); }
+  .quiz-opt.right { background: #13472d; border-color: var(--green); }
+  .quiz-opt.wrong { background: #4a1f22; border-color: #e05d5d; }
+  .quiz-feedback { margin-top: 14px; font-size: 0.95rem; color: #d6efe2; min-height: 44px; }
+  .quiz-score { margin-top: 18px; font-weight: 700; color: var(--green); }
+  .btn-small { margin-top: 14px; padding: 10px 18px; font-size: 0.9rem; border: none; border-radius: 999px; background: var(--green); color: #05321a; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+  @media (max-width: 900px) { .game-grid { grid-template-columns: 1fr; } }
+
+  .gallery { background: #08100d; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .tile { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; background: linear-gradient(135deg, #1c3a33, #0f1d19); border: 1px solid var(--line); margin: 0; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: #fff; font-weight: 700; }
+  .tile.empty figcaption { position: static; color: var(--green-dark); padding-top: 60%; }
+  .tile.empty { display: flex; align-items: flex-end; }
+  .tile.empty figcaption { background: none; }
+
+  .fab { position: fixed; right: 22px; bottom: 22px; z-index: 60; background: var(--green); color: #05321a; border-radius: 999px; padding: 14px 20px; font-weight: 800; text-decoration: none; box-shadow: 0 12px 30px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 10px; }
+
+  footer { background: #0c1714; color: #9db8ae; padding: 40px 0; font-size: 0.92rem; text-align: center; }
+  footer a { color: #cfe3da; }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split, .contact { grid-template-columns: 1fr; }
+    .nav ul { display: none; }
+    section { padding: 66px 0; }
+    .contact { padding: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="#top">
+      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#25d366"/>
+        <path d="M8 10h16v9H14l-4 4v-4H8z" fill="#05321a"/>
+      </svg>
+      Future
+    </a>
+    <ul>
+      <li><a href="#help">Tech Help</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-green" href="https://wa.me/254706180760?text=Hi%20Future%2C%20I%20need%20help%20with%20a%20tech%20problem">WhatsApp Me</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Tech problem? Let's fix it together.</h1>
+      <p class="lead">Phone slow, Wi-Fi dropping, app not working, account locked, or a project you need built? Tell me what is happening and I will walk you through the fix, or handle it for you.</p>
+      <div class="actions">
+        <a class="btn btn-green" href="https://wa.me/254706180760?text=Hi%20Future%2C%20I%20need%20help%20with%20a%20tech%20problem">Chat on WhatsApp</a>
+        <a class="btn btn-outline" href="tel:+254706180760">Call 0706 180 760</a>
+      </div>
+      <p class="hero-note"><strong>Mobile:</strong> 0706 180 760 (calls and WhatsApp)</p>
+    </div>
+    <svg class="hero-art" viewBox="0 0 500 420" role="img" aria-label="Illustration of a laptop and phone with a chat conversation where a problem is solved">
+      <circle cx="250" cy="210" r="190" fill="#25d366" opacity="0.08"/>
+      <!-- laptop -->
+      <rect x="70" y="110" width="290" height="190" rx="14" fill="#0c1714" stroke="#3c6b5e" stroke-width="4"/>
+      <rect x="84" y="124" width="262" height="162" rx="6" fill="#f5f8f6"/>
+      <rect x="84" y="124" width="262" height="24" rx="6" fill="#dbe5e0"/>
+      <circle cx="98" cy="136" r="4" fill="#e05d5d"/><circle cx="110" cy="136" r="4" fill="#e8b43d"/><circle cx="122" cy="136" r="4" fill="#25d366"/>
+      <rect x="100" y="162" width="110" height="10" rx="5" fill="#13231f" opacity="0.8"/>
+      <rect x="100" y="180" width="170" height="8" rx="4" fill="#9fb8ae"/>
+      <rect x="100" y="196" width="140" height="8" rx="4" fill="#9fb8ae"/>
+      <rect x="100" y="216" width="200" height="50" rx="8" fill="#e3f7ea"/>
+      <path d="M116 240 l12 12 l24 -26" fill="none" stroke="#128c4a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="152" y="246" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#128c4a">Wi-Fi fixed</text>
+      <rect x="40" y="300" width="350" height="18" rx="6" fill="#3c6b5e"/>
+      <rect x="150" y="318" width="130" height="8" rx="4" fill="#3c6b5e"/>
+      <!-- phone -->
+      <rect x="330" y="80" width="120" height="236" rx="22" fill="#0c1714" stroke="#3c6b5e" stroke-width="4"/>
+      <rect x="338" y="98" width="104" height="202" rx="14" fill="#e8f1ec"/>
+      <rect x="338" y="98" width="104" height="30" rx="14" fill="#128c4a"/>
+      <rect x="338" y="116" width="104" height="12" fill="#128c4a"/>
+      <text x="350" y="118" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Future</text>
+      <rect x="346" y="142" width="74" height="30" rx="10" fill="#ffffff"/>
+      <text x="354" y="161" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#13231f">My phone is slow</text>
+      <rect x="370" y="182" width="74" height="30" rx="10" fill="#25d366"/>
+      <text x="378" y="201" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#05321a">Send me a photo</text>
+      <rect x="346" y="222" width="86" height="30" rx="10" fill="#ffffff"/>
+      <text x="354" y="241" font-family="Segoe UI, Arial, sans-serif" font-size="10" fill="#13231f">Done, storage cleared!</text>
+      <rect x="346" y="262" width="20" height="20" rx="10" fill="#9fb8ae"/>
+      <rect x="372" y="264" width="60" height="16" rx="8" fill="#ffffff"/>
+      <!-- sparkles -->
+      <path d="M440 50 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z" fill="#25d366"/>
+      <path d="M50 60 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3z" fill="#ff7a59"/>
+      <circle cx="420" cy="350" r="8" fill="#2f6fed" opacity="0.7"/>
+    </svg>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="wrap">
+    <span>Remote help by call or WhatsApp</span>
+    <span>Plain-language explanations</span>
+    <span>Honest quotes before any work</span>
+    <span>Your data stays private</span>
+  </div>
+</div>
+
+<!-- HELP SERVICES -->
+<section id="help">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tech problems I solve</h2>
+      <p class="eyebrow-free">Common issues first, then the bigger jobs. Send a photo or screen recording to speed things up.</p>
+    </div>
+    <div class="services">
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#e3f7ea"/>
+          <rect x="95" y="30" width="110" height="78" rx="10" fill="#13231f"/>
+          <rect x="103" y="38" width="94" height="62" rx="4" fill="#f5f8f6"/>
+          <path d="M125 96 q25 -30 50 0" fill="none" stroke="#128c4a" stroke-width="5" stroke-linecap="round"/>
+          <path d="M135 92 q15 -16 30 0" fill="none" stroke="#128c4a" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="150" cy="90" r="4" fill="#128c4a"/>
+          <rect x="70" y="120" width="160" height="10" rx="5" fill="#3a4d47" opacity="0.3"/>
+        </svg>
+        <h3>Wi-Fi and internet problems</h3>
+        <p>Slow connections, drops, and devices that refuse to join the network.</p>
+        <ul><li>Router setup and password changes</li><li>Finding dead spots and better placement</li></ul>
+      </article>
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#fdeee8"/>
+          <rect x="100" y="16" width="100" height="120" rx="16" fill="#13231f"/>
+          <rect x="108" y="30" width="84" height="92" rx="6" fill="#ffffff"/>
+          <rect x="118" y="44" width="64" height="10" rx="5" fill="#ff7a59"/>
+          <rect x="118" y="62" width="50" height="8" rx="4" fill="#dbe5e0"/>
+          <rect x="118" y="78" width="60" height="8" rx="4" fill="#dbe5e0"/>
+          <rect x="118" y="94" width="40" height="8" rx="4" fill="#dbe5e0"/>
+          <circle cx="150" cy="124" r="4" fill="#ffffff"/>
+          <path d="M218 40 l8 -8 M226 52 l12 0 M220 64 l8 8" stroke="#ff7a59" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <h3>Phone performance and storage</h3>
+        <p>Full storage, overheating, battery drain, and apps that crash.</p>
+        <ul><li>Safe cleanup that keeps your photos</li><li>Battery and background app check</li></ul>
+      </article>
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#e6eefc"/>
+          <rect x="60" y="28" width="180" height="100" rx="10" fill="#13231f"/>
+          <rect x="70" y="38" width="160" height="80" rx="4" fill="#0c1714"/>
+          <text x="80" y="60" font-family="Courier New, monospace" font-size="12" fill="#25d366">$ setup --app</text>
+          <text x="80" y="78" font-family="Courier New, monospace" font-size="12" fill="#c8d8d2">Installing... ok</text>
+          <text x="80" y="96" font-family="Courier New, monospace" font-size="12" fill="#c8d8d2">Config saved</text>
+          <text x="80" y="112" font-family="Courier New, monospace" font-size="12" fill="#2f6fed">_</text>
+        </svg>
+        <h3>Software install and setup</h3>
+        <p>Getting the right apps installed, configured, and working together.</p>
+        <ul><li>Office, school, and design software</li><li>Printers, scanners, and accessories</li></ul>
+      </article>
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#fff4d6"/>
+          <rect x="70" y="30" width="160" height="90" rx="10" fill="#ffffff" stroke="#e8b43d" stroke-width="3"/>
+          <circle cx="150" cy="62" r="16" fill="none" stroke="#e8b43d" stroke-width="5"/>
+          <path d="M150 52 v10 l7 5" fill="none" stroke="#13231f" stroke-width="3" stroke-linecap="round"/>
+          <rect x="100" y="90" width="100" height="8" rx="4" fill="#dbe5e0"/>
+          <rect x="115" y="104" width="70" height="8" rx="4" fill="#dbe5e0"/>
+        </svg>
+        <h3>Recovering lost files</h3>
+        <p>Deleted photos, documents, or a phone that stopped working. I'll assess what is recoverable first.</p>
+        <ul><li>Honest recovery estimate before work</li><li>Backups set up so it does not happen again</li></ul>
+      </article>
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#e3f7ea"/>
+          <path d="M150 28 l50 18 v34 c0 32 -22 52 -50 62 c-28 -10 -50 -30 -50 -62 v-34 z" fill="#128c4a"/>
+          <path d="M130 82 l14 14 l26 -28" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Virus removal and account recovery</h3>
+        <p>Suspicious pop-ups, unwanted apps, and locked accounts that need to be secured again.</p>
+        <ul><li>Malware scan and removal</li><li>Securing WhatsApp, Gmail, and social accounts</li></ul>
+      </article>
+
+      <article class="service">
+        <svg class="ill" viewBox="0 0 300 150" aria-hidden="true">
+          <rect width="300" height="150" fill="#ece8fb"/>
+          <rect x="50" y="30" width="200" height="90" rx="12" fill="#ffffff"/>
+          <rect x="66" y="46" width="60" height="58" rx="6" fill="#2f6fed" opacity="0.15"/>
+          <rect x="140" y="50" width="90" height="10" rx="5" fill="#2f6fed"/>
+          <rect x="140" y="70" width="70" height="8" rx="4" fill="#c4cfe8"/>
+          <rect x="140" y="86" width="80" height="8" rx="4" fill="#c4cfe8"/>
+          <rect x="140" y="102" width="50" height="8" rx="4" fill="#c4cfe8"/>
+        </svg>
+        <h3>Custom projects and apps</h3>
+        <p>Websites, chat apps, WhatsApp bots, and school or business tools built to your needs.</p>
+        <ul><li>Simple websites and landing pages</li><li>Bots and automation tools</li></ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p class="eyebrow-free">Most problems can be solved in one conversation. Bigger jobs get a clear quote first.</p>
+    </div>
+    <div class="steps">
+      <div class="step on"><h3>1. Tell me the problem</h3><p>Call or WhatsApp 0706 180 760. Describe what happens and what device you use.</p></div>
+      <div class="step on"><h3>2. Share a screenshot</h3><p>A photo or short screen recording helps me diagnose it faster.</p></div>
+      <div class="step"><h3>3. Get a plan</h3><p>I explain the fix in plain language and tell you whether it is free, quick, or needs a visit.</p></div>
+      <div class="step"><h3>4. Fix and confirm</h3><p>We solve it together, and I check that it stays fixed before we finish.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section>
+  <div class="wrap split">
+    <svg class="big" viewBox="0 0 480 360" role="img" aria-label="Illustration of a person learning to fix their own device with a guide">
+      <rect width="480" height="360" rx="22" fill="#e3f7ea"/>
+      <circle cx="380" cy="80" r="40" fill="#25d366" opacity="0.25"/>
+      <!-- desk -->
+      <rect x="40" y="250" width="400" height="16" rx="8" fill="#13231f"/>
+      <rect x="90" y="266" width="12" height="60" fill="#13231f"/>
+      <rect x="378" y="266" width="12" height="60" fill="#13231f"/>
+      <!-- monitor -->
+      <rect x="170" y="130" width="170" height="110" rx="10" fill="#13231f"/>
+      <rect x="180" y="140" width="150" height="90" rx="4" fill="#f5f8f6"/>
+      <rect x="192" y="156" width="60" height="8" rx="4" fill="#128c4a"/>
+      <rect x="192" y="174" width="120" height="6" rx="3" fill="#9fb8ae"/>
+      <rect x="192" y="188" width="100" height="6" rx="3" fill="#9fb8ae"/>
+      <rect x="192" y="202" width="80" height="6" rx="3" fill="#9fb8ae"/>
+      <rect x="250" y="240" width="20" height="10" fill="#13231f"/>
+      <!-- person -->
+      <circle cx="105" cy="170" r="26" fill="#f2c9a0"/>
+      <path d="M80 160 q25 -36 50 0 q-6 -12 -25 -14 q-19 2 -25 14z" fill="#13231f"/>
+      <rect x="72" y="198" width="66" height="60" rx="26" fill="#128c4a"/>
+      <rect x="52" y="210" width="26" height="14" rx="7" fill="#f2c9a0" transform="rotate(-30 65 217)"/>
+      <!-- speech -->
+      <rect x="40" y="60" width="150" height="54" rx="14" fill="#ffffff"/>
+      <path d="M70 114 l10 14 l12 -14z" fill="#ffffff"/>
+      <text x="56" y="84" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#13231f">Show me how!</text>
+      <text x="56" y="102" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#3a4d47">I'll guide each step.</text>
+      <!-- tool icon -->
+      <g transform="translate(380 200)">
+        <circle r="32" fill="#ffffff"/>
+        <path d="M-12 -14 a10 10 0 0 1 14 14 l12 12 l-4 4 l-12 -12 a10 10 0 0 1 -14 -14 l6 6 l4 -4 z" fill="#128c4a"/>
+      </g>
+    </svg>
+    <div>
+      <h2 style="font-size:clamp(2rem,4vw,2.6rem);margin-bottom:12px;">Want to learn it yourself?</h2>
+      <p class="eyebrow-free">Not everything needs to be done for you. If you want to understand your device, I'll show you how each fix works so you can handle it next time.</p>
+      <ul class="checks">
+        <li>Step-by-step guidance over call or WhatsApp</li>
+        <li>Short written notes you can keep</li>
+        <li>Advice on what to buy, and what to avoid</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY TEAM -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cybersecurity team</h2>
+      <p class="eyebrow-free">The people behind the security work. Each specialist handles their own area and works under the same privacy rules.</p>
+    </div>
+    <div class="team-grid">
+      <article class="member">
+        <div class="photo">
+          <img src="photos/team-1.jpg" alt="Photo of team member 1" onerror="this.remove()">
+          <span class="initials">T1</span>
+        </div>
+        <div class="member-body">
+          <h3>Team member name</h3>
+          <div class="role">Penetration testing lead</div>
+          <p>Tests web apps and networks for weaknesses, then explains each fix clearly.</p>
+        </div>
+      </article>
+      <article class="member">
+        <div class="photo">
+          <img src="photos/team-2.jpg" alt="Photo of team member 2" onerror="this.remove()">
+          <span class="initials">T2</span>
+        </div>
+        <div class="member-body">
+          <h3>Team member name</h3>
+          <div class="role">Network and Wi-Fi security</div>
+          <p>Secures routers, home and office networks, and checks for unauthorized devices.</p>
+        </div>
+      </article>
+      <article class="member">
+        <div class="photo">
+          <img src="photos/team-3.jpg" alt="Photo of team member 3" onerror="this.remove()">
+          <span class="initials">T3</span>
+        </div>
+        <div class="member-body">
+          <h3>Team member name</h3>
+          <div class="role">Account recovery and malware</div>
+          <p>Helps people regain locked accounts and removes malicious apps from phones and computers.</p>
+        </div>
+      </article>
+      <article class="member">
+        <div class="photo">
+          <img src="photos/team-4.jpg" alt="Photo of team member 4" onerror="this.remove()">
+          <span class="initials">T4</span>
+        </div>
+        <div class="member-body">
+          <h3>Team member name</h3>
+          <div class="role">Incident response and data recovery</div>
+          <p>Responds when something goes wrong, preserves evidence, and recovers lost files where possible.</p>
+        </div>
+      </article>
+    </div>
+    <p class="team-note">Replace the placeholder names and photos with your team's details. Put photo files in a folder named photos next to this HTML file, using the names team-1.jpg to team-4.jpg.</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Behind the work</h2>
+      <p class="eyebrow-free">Real setups, real fixes, and the workspace where projects get built.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="tile"><img src="photos/gallery-1.jpg" alt="Technician repairing a laptop" loading="lazy" onerror="this.parentNode.classList.add('empty');this.remove()"><figcaption>Hands-on device repair</figcaption></figure>
+      <figure class="tile"><img src="photos/gallery-2.jpg" alt="Developer working on a code project" loading="lazy" onerror="this.parentNode.classList.add('empty');this.remove()"><figcaption>Building custom projects</figcaption></figure>
+      <figure class="tile"><img src="photos/gallery-3.jpg" alt="Router and network equipment" loading="lazy" onerror="this.parentNode.classList.add('empty');this.remove()"><figcaption>Network and Wi-Fi setup</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Projects I build</h2>
+      <p>From idea to working product. Here are examples of what I have built.</p>
+    </div>
+    <div class="project-grid">
+
+      <article class="project">
+        <svg viewBox="0 0 400 220" aria-hidden="true">
+          <rect width="400" height="220" fill="#0c1714"/>
+          <rect x="120" y="20" width="160" height="180" rx="22" fill="#13231f" stroke="#3c6b5e" stroke-width="3"/>
+          <rect x="128" y="40" width="144" height="150" rx="10" fill="#e8f1ec"/>
+          <rect x="128" y="40" width="144" height="24" rx="10" fill="#128c4a"/>
+          <rect x="138" y="76" width="90" height="22" rx="8" fill="#ffffff"/>
+          <rect x="178" y="106" width="84" height="22" rx="8" fill="#25d366"/>
+          <rect x="138" y="136" width="100" height="22" rx="8" fill="#ffffff"/>
+          <rect x="178" y="166" width="70" height="16" rx="8" fill="#25d366"/>
+        </svg>
+        <div class="project-body">
+          <span class="tag">Web app</span>
+          <h3>Private chat app</h3>
+          <p>A WhatsApp-style chat website with email-verified accounts, private one-to-one chats, and invite links.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <svg viewBox="0 0 400 220" aria-hidden="true">
+          <rect width="400" height="220" fill="#0c1714"/>
+          <rect x="40" y="30" width="320" height="160" rx="12" fill="#13231f"/>
+          <circle cx="60" cy="48" r="5" fill="#e05d5d"/><circle cx="76" cy="48" r="5" fill="#e8b43d"/><circle cx="92" cy="48" r="5" fill="#25d366"/>
+          <text x="60" y="88" font-family="Courier New, monospace" font-size="14" fill="#25d366">&gt; bot.start()</text>
+          <text x="60" y="110" font-family="Courier New, monospace" font-size="14" fill="#c8d8d2">Connected to WhatsApp</text>
+          <text x="60" y="132" font-family="Courier New, monospace" font-size="14" fill="#c8d8d2">Listening for commands...</text>
+          <text x="60" y="162" font-family="Courier New, monospace" font-size="14" fill="#2f6fed">&gt; _</text>
+        </svg>
+        <div class="project-body">
+          <span class="tag">Automation</span>
+          <h3>WhatsApp bots</h3>
+          <p>Bots deployed on Termux and Railway that answer commands, automate replies, and run on a schedule.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <svg viewBox="0 0 400 220" aria-hidden="true">
+          <rect width="400" height="220" fill="#0c1714"/>
+          <rect x="60" y="34" width="280" height="152" rx="12" fill="#ffffff"/>
+          <rect x="80" y="54" width="120" height="14" rx="7" fill="#2f6fed"/>
+          <rect x="80" y="82" width="240" height="8" rx="4" fill="#c4cfe8"/>
+          <rect x="80" y="100" width="200" height="8" rx="4" fill="#c4cfe8"/>
+          <rect x="80" y="124" width="100" height="50" rx="6" fill="#2f6fed" opacity="0.2"/>
+          <path d="M200 166 l0 -30 l20 0 l0 30z M226 166 l0 -44 l20 0 l0 44z M252 166 l0 -20 l20 0 l0 20z" fill="#2f6fed"/>
+        </svg>
+        <div class="project-body">
+          <span class="tag">Presentations</span>
+          <h3>Research and presentations</h3>
+          <p>Clear slide decks and research write-ups, including a sanitation study for a university communication project.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- MONEY SAFETY -->
+<section id="money-safety" style="background:#0f1d19;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Protect your money and your PIN</h2>
+      <p class="eyebrow-free">Scammers copy M-PESA and bank messages to trick people. These checks take less than a minute.</p>
+    </div>
+    <div class="services">
+      <article class="service">
+        <h3>Check the sender</h3>
+        <p>Real M-PESA and bank messages come from the official sender name in your messages app, not a random number or a link.</p>
+        <ul><li>Compare the message with your own statement in the official app</li><li>Be wary of messages that create urgency</li></ul>
+      </article>
+      <article class="service">
+        <h3>Never share your PIN</h3>
+        <p>M-PESA staff and banks will never ask for your PIN, M-PESA PIN, OTP, or verification code, by call, SMS, or WhatsApp.</p>
+        <ul><li>Hang up and call the official number on the back of your card or the company website</li><li>Do not type your PIN into any link</li></ul>
+      </article>
+      <article class="service">
+        <h3>Avoid links in money messages</h3>
+        <p>Shortened links such as saf.cx or bit.ly can hide fake login pages that steal your details.</p>
+        <ul><li>Open the official app instead of tapping the link</li><li>Type the website address yourself if you must visit one</li></ul>
+      </article>
+      <article class="service">
+        <h3>Tell a fake message apart</h3>
+        <p>Common warning signs include spelling errors, unknown numbers, requests for money to "release" a payment, and prizes you never entered.</p>
+        <ul><li>If unsure, delete the message and check your balance in the app</li><li>Report scam numbers to your provider</li></ul>
+      </article>
+      <article class="service">
+        <h3>Think before you invest or sign up</h3>
+        <p>Offers promising quick money, guaranteed winnings, or easy referral income often lead to losses.</p>
+        <ul><li>Research any app or platform independently before using it</li><li>If it sounds too good to be true, it probably is</li></ul>
+      </article>
+      <article class="service">
+        <h3>What to do if you were tricked</h3>
+        <p>Act fast. The sooner you report, the better the chance of stopping further losses.</p>
+        <ul><li>Change your PIN and passwords right away</li><li>Call your bank or M-PESA support on their official number</li><li>Send me the details and I will help you check your phone</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PASSWORD GAME -->
+<section class="game" id="game">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Beat the password challenge</h2>
+      <p>Type a made-up password and watch the meter react. Then take the quick quiz. Nothing you type is sent or saved.</p>
+    </div>
+    <div class="game-grid">
+      <div class="game-card">
+        <h3>Build a strong password</h3>
+        <p>Try to light up every rule. Use a sample password, never one you actually use.</p>
+        <input class="pw-input" id="game-pw" type="text" placeholder="Type something here" autocomplete="off" spellcheck="false" aria-label="Sample password">
+        <div class="pw-meter" aria-hidden="true"><span id="game-bar"></span></div>
+        <div class="pw-label" id="game-label" aria-live="polite">Start typing</div>
+        <div class="pw-time" id="game-time"></div>
+        <ul class="rules">
+          <li data-rule="len"><span class="box">&#10003;</span>At least 12 characters</li>
+          <li data-rule="upper"><span class="box">&#10003;</span>Uppercase and lowercase letters</li>
+          <li data-rule="num"><span class="box">&#10003;</span>At least one number</li>
+          <li data-rule="sym"><span class="box">&#10003;</span>At least one symbol like ! or #</li>
+          <li data-rule="word"><span class="box">&#10003;</span>Not a common word or pattern</li>
+        </ul>
+      </div>
+      <div class="game-card">
+        <h3>Quick quiz</h3>
+        <p>Answer three questions. Good habits add up.</p>
+        <div id="quiz">
+          <p class="quiz-q" id="quiz-q"></p>
+          <div class="quiz-opts" id="quiz-opts"></div>
+          <div class="quiz-feedback" id="quiz-feedback"></div>
+          <div class="quiz-score" id="quiz-score"></div>
+          <button class="btn-small" id="quiz-restart" type="button" style="display:none;">Play again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap" style="max-width:820px;">
+    <div class="section-head">
+      <h2>Questions</h2>
+    </div>
+    <details open>
+      <summary>How much do you charge?</summary>
+      <p>Simple advice over call or WhatsApp is quick and usually free. Bigger jobs, like custom projects or recovery work, get a quote before I start.</p>
+    </details>
+    <details>
+      <summary>Do I need to send my passwords?</summary>
+      <p>No. I never need your password to diagnose most problems. For account recovery, I'll guide you through the official process on your own device.</p>
+    </details>
+    <details>
+      <summary>Will you access my personal files?</summary>
+      <p>Only if the task requires it, and only with your clear permission. Your files and conversations stay private.</p>
+    </details>
+    <details>
+      <summary>Can you build a project for my business or school?</summary>
+      <p>Yes. Send me a short description of what you need, and I will reply with the options and a rough timeline.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:20px;">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Let's talk</h2>
+        <p>Call or WhatsApp anytime. Send a message with what is happening, and I will reply as soon as I can.</p>
+      </div>
+      <div class="numbers">
+        <div class="number-card">
+          <div><span>Mobile</span><strong>0706 180 760</strong></div>
+          <a class="btn btn-green" href="tel:+254706180760">Call</a>
+        </div>
+        <div class="number-card">
+          <div><span>WhatsApp</span><strong>0706 180 760</strong></div>
+          <a class="btn btn-green" href="https://wa.me/254706180760?text=Hi%20Future%2C%20I%20need%20help%20with%20a%20tech%20problem">Message</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<a class="fab" href="https://wa.me/254706180760?text=Hi%20Future%2C%20I%20need%20help%20with%20a%20tech%20problem" aria-label="Chat on WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="#05321a" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  WhatsApp
+</a>
+
+<footer>
+  <p>&copy; 2026 Future. Tech help and custom projects. <a href="tel:+254706180760">0706 180 760</a></p>
+</footer>
+
+<script>
+  // Password challenge: runs entirely in the browser, nothing is stored or sent
+  const gamePw = document.getElementById('game-pw');
+  const gameBar = document.getElementById('game-bar');
+  const gameLabel = document.getElementById('game-label');
+  const gameTime = document.getElementById('game-time');
+  const ruleItems = {};
+  document.querySelectorAll('.rules li').forEach(li => ruleItems[li.dataset.rule] = li);
+  const badWords = ['password', 'qwerty', '123456', 'letmein', 'welcome', 'admin', 'iloveyou', 'abc123', 'monkey', 'dragon'];
+
+  function formatTime(seconds) {
+    if (seconds < 60) return 'under a minute';
+    if (seconds < 3600) return Math.round(seconds / 60) + ' minutes';
+    if (seconds < 86400) return Math.round(seconds / 3600) + ' hours';
+    if (seconds < 31536000) return Math.round(seconds / 86400) + ' days';
+    if (seconds < 3153600000) return Math.round(seconds / 31536000) + ' years';
+    return 'centuries';
+  }
+
+  gamePw.addEventListener('input', () => {
+    const v = gamePw.value;
+    const checks = {
+      len: v.length >= 12,
+      upper: /[a-z]/.test(v) && /[A-Z]/.test(v),
+      num: /\d/.test(v),
+      sym: /[^A-Za-z0-9]/.test(v),
+      word: v.length > 0 && !badWords.some(w => v.toLowerCase().includes(w))
+    };
+    let passed = 0;
+    for (const key in checks) {
+      ruleItems[key].classList.toggle('ok', checks[key]);
+      if (checks[key]) passed++;
+    }
+    if (!v) {
+      gameBar.style.width = '0';
+      gameLabel.textContent = 'Start typing';
+      gameTime.textContent = '';
+      return;
+    }
+    // Rough guess: each character type adds to the search space.
+    let pool = 0;
+    if (/[a-z]/.test(v)) pool += 26;
+    if (/[A-Z]/.test(v)) pool += 26;
+    if (/\d/.test(v)) pool += 10;
+    if (/[^A-Za-z0-9]/.test(v)) pool += 32;
+    const combos = Math.pow(Math.max(pool, 1), v.length);
+    const guessesPerSecond = 1e10; // a fast offline attack rate, for illustration only
+    const seconds = checks.word ? combos / guessesPerSecond / 2 : 0.001;
+    const score = Math.min(passed, 5);
+    const labels = ['Very weak', 'Weak', 'Getting there', 'Good', 'Strong', 'Excellent'];
+    const colors = ['#e05d5d', '#e05d5d', '#e8b43d', '#9ad06b', '#25d366', '#25d366'];
+    gameBar.style.width = (score / 5 * 100) + '%';
+    gameBar.style.background = colors[score];
+    gameLabel.textContent = labels[score];
+    gameTime.textContent = checks.word
+      ? 'Estimated time for a fast computer to guess it: ' + formatTime(seconds)
+      : 'Common words are guessed first. Pick something less predictable.';
+  });
+
+  // Quiz
+  const questions = [
+    { q: 'Which password is strongest?', opts: ['sunshine2026', 'Tr33-Coffee-River-Lamp', 'Password123!'], a: 1,
+      fb: 'Long, unpredictable passphrases beat short "clever" substitutions every time.' },
+    { q: 'Should you reuse one password on many sites?', opts: ['Yes, it is easier to remember', 'No, use a unique password for each account'], a: 1,
+      fb: 'If one site leaks, reused passwords let attackers try the same password elsewhere.' },
+    { q: 'Someone emails you asking for your verification code. What do you do?', opts: ['Send it, they might be support', 'Never share it, and contact the company directly'], a: 1,
+      fb: 'Real companies never ask for codes. Anyone who does is trying to get into your account.' }
+  ];
+  let current = 0, score = 0;
+  const qEl = document.getElementById('quiz-q');
+  const optsEl = document.getElementById('quiz-opts');
+  const fbEl = document.getElementById('quiz-feedback');
+  const scoreEl = document.getElementById('quiz-score');
+  const restartBtn = document.getElementById('quiz-restart');
+
+  function renderQuestion() {
+    const item = questions[current];
+    qEl.textContent = `Question ${current + 1} of ${questions.length}: ${item.q}`;
+    fbEl.textContent = '';
+    optsEl.innerHTML = '';
+    item.opts.forEach((text, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.type = 'button';
+      btn.textContent = text;
+      btn.addEventListener('click', () => answer(i, btn));
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function answer(i, btn) {
+    const item = questions[current];
+    const buttons = optsEl.querySelectorAll('button');
+    buttons.forEach(b => b.disabled = true);
+    if (i === item.a) {
+      btn.classList.add('right');
+      score++;
+      fbEl.textContent = 'Correct. ' + item.fb;
+    } else {
+      btn.classList.add('wrong');
+      buttons[item.a].classList.add('right');
+      fbEl.textContent = 'Not quite. ' + item.fb;
+    }
+    setTimeout(() => {
+      current++;
+      if (current < questions.length) {
+        renderQuestion();
+      } else {
+        qEl.textContent = 'Quiz complete!';
+        optsEl.innerHTML = '';
+        fbEl.textContent = '';
+        scoreEl.textContent = `You scored ${score} out of ${questions.length}.` + (score === questions.length ? ' Password pro!' : ' Practice makes perfect.');
+        restartBtn.style.display = 'inline-block';
+      }
+    }, 2200);
+  }
+
+  restartBtn.addEventListener('click', () => {
+    current = 0; score = 0;
+    scoreEl.textContent = '';
+    restartBtn.style.display = 'none';
+    renderQuestion();
+  });
+  renderQuestion();
+</script>
+</body>
+  </html>
+  
